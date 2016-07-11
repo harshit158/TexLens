@@ -1,0 +1,23 @@
+<! doctype html>
+<html>
+<head>
+	<title>TexSum</title>
+	<h1><center>TexSum</center></h1>
+</head>
+<body>
+	<form action="." method="POST">
+	<p><center>Enter text to be summarized below</center></p>
+	{% for n in my_string %}
+	<center>{{n}}</center>
+	{%endfor%}
+	<center><input type="text" name="input"></center><br>
+	<center><input type="submit" name="submit" value="Get Summary"></center>
+	{% for item in sum_text %}
+	<left>{{item}}</left><br>
+	{% endfor %}
+	</form>
+	
+
+	
+</body>
+</html>
