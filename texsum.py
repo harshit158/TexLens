@@ -70,11 +70,13 @@ def summarize(text):
 	for sent in sentences:
 		sent_score.setdefault(proper_sent[k],0)
 		word_list=separate_words(sent,1) #list of words in sentence 'sent'
-		print word_list
+		# print word_list
 		for word in set(word_list):
 			sent_score[proper_sent[k]]+=(word_list.count(word))*(math.log(S/isf[word]))
-			sent_score[proper_sent[k]]=sent_score[proper_sent[k]]/len(word_list)
+		sent_score[proper_sent[k]]=sent_score[proper_sent[k]]/(len(word_list)+1)
+
 		k+=1
+
 
 	sorted_keywords = sorted(sent_score.iteritems(), key=operator.itemgetter(1), reverse=True)
 	k=1
