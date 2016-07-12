@@ -1,9 +1,11 @@
 import nltk
+import pickle
 from nltk.corpus import stopwords
 import re
 from collections import Counter
 import math
 import operator
+import os
 # from nltk.stem import WordNetLemmatizer
 # wordnet_lemmatizer = WordNetLemmatizer()
 # word=wordnet_lemmatizer.lemmatize('compression')
@@ -21,7 +23,10 @@ def summarize(text):
 
 	#----------------Sentence tokenization---------------------------------
 
-	sent_tokenizer=nltk.data.load('tokenizers/punkt/english.pickle')
+	# sent_tokenizer=nltk.data.load(os.getcwd()+'/english.pickle')#\'tokenizers/punkt/english.pickle')
+	fileObject = open('english.pickle','r')
+	sent_tokenizer = pickle.load(fileObject)
+	# sent_tokenizer=pickle.load(os.getcwd()+'english.pickle')
 	sentences=sent_tokenizer.tokenize(text)
 
 	# sentence_delimiters=re.compile(u'[!?;:.\t\\\\"\\(\\)\\\'\u2019\u2013]|\\s\\-\\s')
