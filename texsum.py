@@ -1,9 +1,11 @@
 import nltk
+import pickle
 from nltk.corpus import stopwords
 import re
 from collections import Counter
 import math
 import operator
+import os
 # from nltk.stem import WordNetLemmatizer
 # wordnet_lemmatizer = WordNetLemmatizer()
 # word=wordnet_lemmatizer.lemmatize('compression')
@@ -21,7 +23,10 @@ def summarize(text):
 
 	#----------------Sentence tokenization---------------------------------
 
-	sent_tokenizer=nltk.data.load('tokenizers/punkt/english.pickle')
+	# sent_tokenizer=nltk.data.load(os.getcwd()+'/english.pickle')#\'tokenizers/punkt/english.pickle')
+	fileObject = open('english.pickle','r')
+	sent_tokenizer = pickle.load(fileObject)
+	# sent_tokenizer=pickle.load(os.getcwd()+'english.pickle')
 	sentences=sent_tokenizer.tokenize(text)
 
 	# sentence_delimiters=re.compile(u'[!?;:.\t\\\\"\\(\\)\\\'\u2019\u2013]|\\s\\-\\s')
@@ -70,11 +75,13 @@ def summarize(text):
 	for sent in sentences:
 		sent_score.setdefault(proper_sent[k],0)
 		word_list=separate_words(sent,1) #list of words in sentence 'sent'
-		print word_list
+		# print word_list
 		for word in set(word_list):
 			sent_score[proper_sent[k]]+=(word_list.count(word))*(math.log(S/isf[word]))
-			sent_score[proper_sent[k]]=sent_score[proper_sent[k]]/len(word_list)
+		sent_score[proper_sent[k]]=sent_score[proper_sent[k]]/(len(word_list)+1)
+
 		k+=1
+
 
 	sorted_keywords = sorted(sent_score.iteritems(), key=operator.itemgetter(1), reverse=True)
 	k=1
